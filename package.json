@@ -1,0 +1,29 @@
+{
+  "name": "ola-token",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charityland/ola-token.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charityland/ola-token/issues"
+  },
+  "homepage": "https://github.com/charityland/ola-token#readme",
+  "devDependencies": {
+    "@openzeppelin/contracts": "^4.4.0",
+    "bn.js": "^5.2.0",
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "chai-bn": "^0.3.0"
+  }
+}
