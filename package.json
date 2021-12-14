@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/charityland/ola-token.git"
+    "url": "git+https://github.com/charityland/ola-token-erc20-contract.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/charityland/ola-token/issues"
+    "url": "https://github.com/charityland/ola-token-erc20-contract/issues"
   },
-  "homepage": "https://github.com/charityland/ola-token#readme",
+  "homepage": "https://github.com/charityland/ola-token-erc20-contract#readme",
   "devDependencies": {
     "@openzeppelin/contracts": "^4.4.0",
     "bn.js": "^5.2.0",
