@@ -44,9 +44,18 @@ contract("OLATokenRC1", accounts => {
 
     it("has the correct initial supply", async function() {
       const totalSupply = await this.tokenInstance.totalSupply();
-      const expectedSupply = new BN(_initialSupply * (10 ** _decimals));
+      // const expectedSupply = new BN(_initialSupply * (10 ** _decimals));
 
-      (new BN(totalSupply)).should.be.a.bignumber.that.equals(expectedSupply);
+      // (new BN(totalSupply)).should.be.a.bignumber.that.equals(expectedSupply);
+      (new BN(totalSupply)).toString().should.equal('81000000000000000000000000');
+    });
+
+    it("has the entire initial supply assigned to the sender address", async function() {
+      const senderBalance = await this.tokenInstance.balanceOf(accounts[0]);
+      // const expectedBalance = new BN(_initialSupply * (10 ** _decimals));
+
+      // (new BN(senderBalance)).should.be.a.bignumber.that.equals(expectedBalance);
+      (new BN(senderBalance)).toString().should.equal('81000000000000000000000000');
     });
   });
 });
