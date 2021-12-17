@@ -1,4 +1,4 @@
-const OLATokenRC2 = artifacts.require("OLATokenRC2");
+const OLATokenRC3 = artifacts.require("OLATokenRC3");
 
 const chai = require('chai');
 const BN = require('bn.js');
@@ -6,15 +6,15 @@ chai
   .use(require('chai-bn')(BN))
   .should();
 
-contract("OLATokenRC2", accounts => {
-  const _name = "OLA Token RC2";
-  const _symbol = "OLARC2";
+contract("OLATokenRC3", accounts => {
+  const _name = "OLA Token RC3";
+  const _symbol = "OLARC3";
   const _decimals = 18;
   const _initialSupply = 81000000;
 
   describe("token attributes", function() {
     beforeEach(async function() {
-      this.token = await OLATokenRC2.new(_initialSupply);
+      this.token = await OLATokenRC3.new(_initialSupply);
     });
 
     it("has the correct name", async function() {
@@ -41,7 +41,7 @@ contract("OLATokenRC2", accounts => {
     let expectedSupply = new BN(_initialSupply).mul(new BN(10).pow(new BN(_decimals)));
 
     beforeEach(async function() {
-      this.tokenInstance = await OLATokenRC2.deployed();
+      this.tokenInstance = await OLATokenRC3.deployed();
     });
 
     it("has the correct initial supply", async function() {
@@ -61,24 +61,11 @@ contract("OLATokenRC2", accounts => {
     let tokensToMint = 1000;
 
     beforeEach(async function() {
-      this.tokenInstance = await OLATokenRC2.deployed();
+      this.tokenInstance = await OLATokenRC3.deployed();
     });
 
-    it("allows onwer to mint tokens", async function() {
-      const expectedSupply = new BN(_initialSupply).mul(new BN(10).pow(new BN(_decimals))).add(new BN(tokensToMint));
-      await this.tokenInstance.mint(accounts[0], tokensToMint);
-      const actualSupply = await this.tokenInstance.totalSupply();
-
-      (new BN(actualSupply)).should.be.a.bignumber.that.equals(expectedSupply);
-    });
-
-    xit("does not allow other addresses to mint tokens", async function() {
-      await this.tokenInstance.changeAdmin(accounts[1], {from : accounts[0]});
-      await this.tokenInstance.becomeAdmin({from: accounts[1]});
-      await this.tokenInstance.mint(accounts[0], 1000);
-      const totalSupply = await this.tokenInstance.totalSupply();
-
-      (new BN(totalSupply)).toString().should.equal('81000000000000000000000000');
+    it("does not allow to mint tokens", async function() {
+      expect(() => this.tokenInstance.mint(accounts[0], tokensToMint)).to.throw('this.tokenInstance.mint is not a function');
     });
   });
 
@@ -86,7 +73,7 @@ contract("OLATokenRC2", accounts => {
     let tokensToBurn = 2000;
 
     beforeEach(async function() {
-      this.tokenInstance = await OLATokenRC2.deployed();
+      this.tokenInstance = await OLATokenRC3.deployed();
     });
 
     it("allows onwer to burn tokens", async function() {

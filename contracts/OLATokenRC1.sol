@@ -3,6 +3,9 @@ pragma solidity >=0.4.22 <0.9.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
+// OLA Token RC1
+//  * NOT mintable
+//  * NOT burnable
 contract OLATokenRC1 is ERC20 {
   string public _name = "OLA Token RC1";
   string public _symbol = "OLARC1";
