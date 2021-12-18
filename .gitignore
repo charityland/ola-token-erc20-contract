@@ -57,3 +57,5 @@ allFiredEvents
 # hardhat
 cache
 artifacts
+
+secrets.json
