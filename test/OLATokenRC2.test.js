@@ -72,13 +72,12 @@ contract("OLATokenRC2", accounts => {
       (new BN(actualSupply)).should.be.a.bignumber.that.equals(expectedSupply);
     });
 
-    xit("does not allow other addresses to mint tokens", async function() {
-      await this.tokenInstance.changeAdmin(accounts[1], {from : accounts[0]});
-      await this.tokenInstance.becomeAdmin({from: accounts[1]});
-      await this.tokenInstance.mint(accounts[0], 1000);
-      const totalSupply = await this.tokenInstance.totalSupply();
-
-      (new BN(totalSupply)).toString().should.equal('81000000000000000000000000');
+    it("does not allow other addresses to mint tokens", async function() {
+      try {
+        await this.tokenInstance.mint(accounts[0], tokensToMint, { from: accounts[1] });
+      } catch (error) {
+        assert.include(error.message, 'Ownable: caller is not the owner');
+      }
     });
   });
 
@@ -97,13 +96,12 @@ contract("OLATokenRC2", accounts => {
       (new BN(actualSupply)).should.be.a.bignumber.that.equals(expectedSupply);
     });
 
-    xit("does not allow other addresses to burn tokens", async function() {
-      await this.tokenInstance.changeAdmin(accounts[1], {from : accounts[0]});
-      await this.tokenInstance.becomeAdmin({from: accounts[1]});
-      await this.tokenInstance.mint(accounts[0], 1000);
-      const totalSupply = await this.tokenInstance.totalSupply();
-
-      (new BN(totalSupply)).toString().should.equal('81000000000000000000000000');
+    it("does not allow other addresses to burn tokens", async function() {
+      try {
+        await this.tokenInstance.burn(tokensToBurn, { from: accounts[3] });
+      } catch (error) {
+        assert.include(error.message, 'ERC20: burn amount exceeds balance');
+      }
     });
   });
 });

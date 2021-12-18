@@ -76,7 +76,8 @@ contract("OLATokenRC3", accounts => {
       this.tokenInstance = await OLATokenRC3.deployed();
     });
 
-    it("allows onwer to burn tokens", async function() {
+    it("allows onwer to burn at most 1% tokens", async function() {
+      let tokensToBurn = new BN(_initialSupply).mul(new BN(10).pow(new BN(_decimals - 2)));
       const expectedSupply = (await this.tokenInstance.totalSupply()).sub(new BN(tokensToBurn));
       await this.tokenInstance.burn(tokensToBurn);
       const actualSupply = await this.tokenInstance.totalSupply();
@@ -84,13 +85,32 @@ contract("OLATokenRC3", accounts => {
       (new BN(actualSupply)).should.be.a.bignumber.that.equals(expectedSupply);
     });
 
-    xit("does not allow other addresses to burn tokens", async function() {
-      await this.tokenInstance.changeAdmin(accounts[1], {from : accounts[0]});
-      await this.tokenInstance.becomeAdmin({from: accounts[1]});
-      await this.tokenInstance.mint(accounts[0], 1000);
-      const totalSupply = await this.tokenInstance.totalSupply();
+    it("does not allow onwer to burn more than 1% tokens", async function() {
+      let tokensToBurn = new BN(_initialSupply).mul(new BN(10).pow(new BN(_decimals - 1)));
 
-      (new BN(totalSupply)).toString().should.equal('81000000000000000000000000');
+      try {
+        await this.tokenInstance.burn(tokensToBurn);
+      } catch (error) {
+        assert.include(error.message, 'OLAToken: Amount exceeds one time burn limit');
+      }
+    });
+
+    it("allows addresses to burn tokens", async function() {
+      const supplyBefore = await this.tokenInstance.totalSupply();
+
+      await this.tokenInstance.transfer(accounts[2], tokensToBurn);
+      await this.tokenInstance.burn(tokensToBurn, { from: accounts[2] });
+      const supplyAfter = await this.tokenInstance.totalSupply();
+
+      supplyAfter.should.be.a.bignumber.that.equals(supplyBefore.sub(new BN(tokensToBurn)));
+    });
+
+    it("does not allow addresses to burn tokens over their balance", async function() {
+      try {
+        await this.tokenInstance.burn(tokensToBurn, { from: accounts[3] });
+      } catch (error) {
+        assert.include(error.message, 'ERC20: burn amount exceeds balance');
+      }
     });
   });
 });

@@ -15,4 +15,9 @@ contract OLATokenRC3 is ERC20, ERC20Burnable, Ownable {
   constructor(uint256 initialSupply) ERC20(_name, _symbol) {
     _mint(msg.sender, initialSupply * 10 ** decimals());
   }
+
+  function burn(uint256 amount) public override {
+    require(amount <= totalSupply() / 100, "OLAToken: Amount exceeds one time burn limit");
+    _burn(_msgSender(), amount);
+  }
 }
