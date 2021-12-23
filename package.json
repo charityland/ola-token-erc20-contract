@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/charityland/ola-token-erc20-contract#readme",
   "devDependencies": {
+    "@nomiclabs/hardhat-etherscan": "^2.1.8",
     "@openzeppelin/contracts": "^4.4.0",
     "bn.js": "^5.2.0",
     "chai": "^4.3.4",

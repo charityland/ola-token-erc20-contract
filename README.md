@@ -26,3 +26,10 @@ Properties:
 
 * NOT mintable
 * burnable
+
+## $OLA Token
+
+Properties:
+
+* NOT mintable
+* burnable

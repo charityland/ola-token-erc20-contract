@@ -27,6 +27,13 @@ module.exports = {
       },
       network_id: 4,
       gas: 5500000
+    },
+    mainnet: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, `wss://mainnet.infura.io/ws/v3/${projectId}`, walletSeq)
+      },
+      network_id: 1,
+      gas: 5500000
     }
   },
   mocha: {

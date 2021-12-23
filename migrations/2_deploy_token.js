@@ -1,7 +1,7 @@
-const OLATokenRC1 = artifacts.require("OLATokenRC1");
+const OLAToken = artifacts.require("OLAToken");
 
 module.exports = function (deployer) {
   const initialSupply = 81000000;
 
-  deployer.deploy(OLATokenRC1, initialSupply);
+  deployer.deploy(OLAToken, initialSupply);
 };
