@@ -1,7 +1,10 @@
-const { projectId, mnemonic, walletSeq } = require('./secrets.json');
+const { projectId, mnemonic, walletSeq, etherscanApiKey } = require('./secrets.json');
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 module.exports = {
+  plugins: [
+    'truffle-plugin-verify'
+  ],
   networks: {
     development: {
       host: "127.0.0.1",
@@ -33,7 +36,8 @@ module.exports = {
         return new HDWalletProvider(mnemonic, `wss://mainnet.infura.io/ws/v3/${projectId}`, walletSeq)
       },
       network_id: 1,
-      gas: 5500000
+      gas: 5500000,
+      gasPrice: 49000000000
     }
   },
   mocha: {
@@ -54,4 +58,8 @@ module.exports = {
       // }
     }
   },
+
+  api_keys: {
+    etherscan: etherscanApiKey
+  }
 };

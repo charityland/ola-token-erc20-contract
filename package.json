@@ -20,12 +20,12 @@
   },
   "homepage": "https://github.com/charityland/ola-token-erc20-contract#readme",
   "devDependencies": {
-    "@nomiclabs/hardhat-etherscan": "^2.1.8",
     "@openzeppelin/contracts": "^4.4.0",
     "bn.js": "^5.2.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
-    "chai-bn": "^0.3.0"
+    "chai-bn": "^0.3.0",
+    "truffle-plugin-verify": "^0.5.20"
   },
   "dependencies": {
     "@truffle/hdwallet-provider": "^2.0.0"
